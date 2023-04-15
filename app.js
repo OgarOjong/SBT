@@ -31,6 +31,11 @@ mongoose.connect(MONGODB_URI,
     console.log(err);
 });
 
+function wrapAsync(fn){
+    return function  (req,res,next) {
+        fn(req,res,next).catch(e =>next(e));
+    }
+}
 
 app.get("/",(req,res)=>{
     res.render("home")
@@ -69,9 +74,8 @@ app.get("/campgrounds/:id", async(req,res)=>{
         
     } catch (error) {
         console.log("From ID route");
-        console.log(error)
+        console.log(error); 
     }
-   
 });
 
 app.get("/campgrounds/:id/edit", async(req,res)=>{
