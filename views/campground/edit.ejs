@@ -1,41 +1,78 @@
-<% layout("layouts/boilerplate.ejs") %>
-    `<div class="row">
-        <h1 class="text-center">Edit Campground</h1>
-        <div class="col-6 offset-3">
-            <form action="/campgrounds/<%= campground._id %>?_method=put" method="post">
-                <div class="mb-3">
-                    <label class="form-label" for="title">Edit Title</label>
-                    <input class="form-control" type="text" name="campground[title]" id="title" value="<%= campground.title %>">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label" for="title">Location</label>
-                    <input class="form-control" type="text" name="campground[location]" id="location" value="<%= campground.location%>">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label" for="image">Image Url</label>
-                    <input class="form-control" type="text" name="campground[image]" id="image" value="<%= campground.image %>">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label" for="price">Campground price</label>
-                    <div class="input-group">
-                        <span class="input-group-text" id="price">$</span>
-                        <input class="form-control" type="text" name="campground[price]" id="price" placeholder="$0.0" aria-describedby="price-lable" value="<%= campground.price %>">
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label" for="description">Description</label>
-                    <textarea class="form-control" type="text" name="campground[description]" id="image"><%= campground.description%></textarea>
-                </div>
-                
-                <div class="mb-3">
-                <button class="btn btn-info ">Update Campground</button>
-                </div>
-            </form>
-            <a  class="" href="/campgrounds/<%= campground._id %>">Back to Campground</a>
-        </div>
-    </div>
+<% layout("layouts/boilerplate.ejs") %> `
+<div class="row">
+	<h1 class="text-center">Edit Campground</h1>
+	<div class="col-6 offset-3">
+		<form
+			action="/campgrounds/<%= campground._id %>?_method=put"
+			method="post"
+			novalidate
+			class="validatedForm">
+			<div class="mb-3">
+				<label class="form-label" for="title">Edit Title</label>
+				<input
+					class="form-control"
+					type="text"
+					name="campground[title]"
+					id="title"
+					required
+					value="<%= campground.title %>" />
+				<div class="valid-feedback">looks good</div>
+			</div>
+			<div class="mb-3">
+				<label class="form-label" for="title">Location</label>
+				<input
+					class="form-control"
+					type="text"
+					name="campground[location]"
+					id="location"
+					required
+					value="<%= campground.location%>" />
+				<div class="valid-feedback">looks good</div>
+			</div>
+			<div class="mb-3">
+				<label class="form-label" for="image">Image Url</label>
+				<input
+					class="form-control"
+					type="text"
+					name="campground[image]"
+					id="image"
+					required
+					value="<%= campground.image %>" />
+				<div class="valid-feedback">looks good</div>
+			</div>
+			<div class="mb-3">
+				<label class="form-label" for="price">Campground price</label>
+				<div class="input-group">
+					<span class="input-group-text" id="price">$</span>
+					<input
+						class="form-control"
+						type="text"
+						name="campground[price]"
+						id="price"
+						placeholder="$0.0"
+						aria-describedby="price-lable"
+						required
+						value="<%= campground.price %>" />
+					<div class="valid-feedback">looks good</div>
+				</div>
+			</div>
+			<div class="mb-3">
+				<label class="form-label" for="description">Description</label>
+				<textarea
+					class="form-control"
+					type="text"
+					name="campground[description]"
+					id="description"
+					required>
+<%= campground.description%></textarea
+				>
+				<div class="valid-feedback">looks good</div>
+			</div>
 
-
-
-
-
+			<div class="mb-3">
+				<button class="btn btn-info">Update Campground</button>
+			</div>
+		</form>
+		<a class="" href="/campgrounds/<%= campground._id %>">Back to Campground</a>
+	</div>
+</div>
