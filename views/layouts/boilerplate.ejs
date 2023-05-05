@@ -13,7 +13,9 @@
 	</head>
 	<body class="d-flex flex-column vh-100">
 		<%- include('../partials/navbar.ejs') %>
-		<main class="container mt-5 mb-3"><%- body %></main>
+		<main class="container mt-5 mb-3">
+			<%- include('../partials/flash.ejs') %> <%- body %>
+		</main>
 		<%- include('../partials/footer.ejs') %>
 
 		<script src="/javascripts/validateForm.js"></script>

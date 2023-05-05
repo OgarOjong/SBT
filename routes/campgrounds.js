@@ -4,6 +4,8 @@ const Campground = require("../model/campground");
 const catchAsync = require("../utils/catchAsync");
 const ExpressError = require("../utils/ExpressError");
 const { CampgroundSchema, reviewSchema } = require("../utils/schemas");
+const flash = require("connect-flash");
+const ObjectID = require("mongoose").Types.ObjectId;
 
 const validateCampground = (req, res, next) => {
 	const { error } = CampgroundSchema.validate(req.body);
@@ -21,6 +23,10 @@ router.get(
 	"/",
 	catchAsync(async (req, res) => {
 		const campgrounds = await Campground.find({});
+		if (!campgrounds) {
+			req.flash("error", "Cannot Find Campground");
+			return res.redirect("/campgrounds");
+		}
 		//res.status(201).send(campgrounds);
 		res.render("campground/index", { campgrounds });
 
@@ -39,6 +45,7 @@ router.post(
 		if (!req.body.campground) throw new ExpressError("Invalid request", 300);
 		const camp = new Campground(req.body.campground);
 		await camp.save();
+		req.flash("success", "Successfully made a new campground");
 		res.redirect(`campgrounds/${camp._id}`);
 	})
 );
@@ -47,8 +54,19 @@ router.get(
 	"/:id",
 	catchAsync(async (req, res) => {
 		const { id } = req.params;
+
+		if (!ObjectID.isValid(id)) {
+			req.flash("error", "Invalid campground ID please contact admin");
+			return res.redirect("/campgrounds");
+		}
+
 		// console.log(id);
 		const campground = await Campground.findById(id).populate("reviews");
+		if (!campground) {
+			req.flash("error", "Cannot find campground/wrong campground ID");
+			return res.redirect("/campgrounds");
+		}
+
 		console.log(campground);
 		console.log("This is where the error emits");
 		res.render("campground/show", { campground });
