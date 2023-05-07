@@ -11,6 +11,9 @@ const flash = require("connect-flash");
 //const catchAsync = require("./utils/catchAsync");
 const ExpressError = require("./utils/ExpressError");
 const Joi = require("joi");
+const passport = require("passport");
+const localStrategy = require("passport-local");
+const User = require("./model/user");
 
 const app = express();
 //const Campground = require("./model/campground");
@@ -39,6 +42,13 @@ const sessionConfig = {
 
 app.use(session(sessionConfig));
 app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 const CampgroundsRoute = require("./routes/campgrounds");
 const reviewRoutes = require("./routes/reviews");
 
