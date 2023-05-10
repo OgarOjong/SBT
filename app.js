@@ -51,6 +51,17 @@ passport.deserializeUser(User.deserializeUser());
 
 const CampgroundsRoute = require("./routes/campgrounds");
 const reviewRoutes = require("./routes/reviews");
+const userRoutes = require("./routes/users");
+
+app.get("/fakeUser", async (req, res, next) => {
+	const user = new User({
+		email: "ojongemmanuel95@gmail.com",
+		username: "Ntufam",
+	});
+	//pass in user object and password
+	const newUser = await User.register(user, "NewPa$$Ward");
+	res.send(newUser);
+});
 
 const MONGODB_URI = `mongodb://127.0.0.1:${process.env.DBport}/yelp-camp`;
 mongoose
@@ -73,6 +84,7 @@ app.use((req, res, next) => {
 });
 app.use("/campgrounds", CampgroundsRoute);
 app.use("/campgrounds/:id/reviews", reviewRoutes);
+app.use("/users", userRoutes);
 
 app.get("/", (req, res) => {
 	res.render("home");
