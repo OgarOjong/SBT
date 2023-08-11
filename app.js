@@ -60,10 +60,7 @@ passport.use(
 
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-
 const uploaderRoute = require("./routes/uploader");
-const CampgroundsRoute = require("./routes/campgrounds");
-const reviewRoutes = require("./routes/reviews");
 const userRoutes = require("./routes/users");
 
 app.get("/fakeUser", async (req, res, next) => {
