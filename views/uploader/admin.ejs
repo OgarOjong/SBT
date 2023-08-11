@@ -1,0 +1,64 @@
+<%- include('../uploaderPartials/header.ejs') %>
+<!--Container Main start-->
+<div class="height-100">
+	<h4 class="pt-4">CREATE A NEW USER</h4>
+	<% if (messages.error.length > 0) {%>
+	<div class="alert alert-danger alert-dismissible">
+		<button
+			type="button"
+			class="btn-close btn-sm"
+			data-bs-dismiss="alert"></button>
+		<%= messages.error%>
+	</div>
+	<% } %> <% if (messages.success.length > 0) {%>
+	<div class="alert alert-success alert-dismissible">
+		<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+		<%= messages.success%>
+	</div>
+	<% } %>
+
+	<div
+		class="col-4 offset-3"
+		style="background-color: #f2f2f2; padding: 20px 40px; border-radius: 10px">
+		<form action="/uploader/admin" method="post" autocomplete="off">
+			<div class="form-group mb-4">
+				<label for="email" class="sr-only">Name</label>
+				<input
+					type="name"
+					name="name"
+					id="name"
+					class="form-control"
+					placeholder="Name" />
+			</div>
+			<div class="form-group mb-4">
+				<label for="email" class="sr-only">Email</label>
+				<input
+					type="email"
+					name="email"
+					id="email"
+					class="form-control"
+					placeholder="Email address" />
+			</div>
+			<div class="form-group mb-4">
+				<label for="password" class="sr-only">Password</label>
+				<input
+					type="password"
+					name="password"
+					id="password"
+					class="form-control"
+					placeholder="Password" />
+			</div>
+			<div class="form-group mb-4">
+				<label for="password" class="sr-only">Role</label>
+				<select name="role" id="role" class="form-control">
+					<option value="customer_care">Customer Care</option>
+					<option value="finance_admin">Finance Admin</option>
+					<option value="auditor">Auditor</option>
+				</select>
+			</div>
+			<button class="btn btn-block login-btn btn-dark mb-4">Create User</button>
+		</form>
+	</div>
+</div>
+<!--Container Main end-->
+<%- include('../uploaderPartials/footer.ejs') %>

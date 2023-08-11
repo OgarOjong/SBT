@@ -1,0 +1,14 @@
+<% if (messages.error.length > 0) {%>
+<div class="alert alert-danger alert-dismissible">
+	<button
+		type="button"
+		class="btn-close btn-sm"
+		data-bs-dismiss="alert"></button>
+	<%= messages.error%>
+</div>
+<% } %> <% if (messages.success.length > 0) {%>
+<div class="alert alert-success alert-dismissible">
+	<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+	<%= messages.success%>
+</div>
+<% } %>

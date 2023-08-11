@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 const methodOveride = require("method-override");
 const morgan = require("morgan");
 const ejsMate = require("ejs-mate");
@@ -23,10 +24,11 @@ const { json } = require("express");
 app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+
 app.use(methodOveride("_method"));
 app.use(morgan("dev"));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "public")));
 
 const sessionConfig = {
@@ -40,15 +42,26 @@ const sessionConfig = {
 	},
 };
 
+app.set("trust proxy", true);
 app.use(session(sessionConfig));
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(new localStrategy(User.authenticate()));
+passport.use(
+	new localStrategy(
+		{
+			usernameField: "email", // Specify the field for the username (email)
+			passwordField: "password", // Specify the field for the password
+		},
+		User.authenticate()
+	)
+);
+//passport.use(new localStrategy(User.authenticate()));
 
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+const uploaderRoute = require("./routes/uploader");
 const CampgroundsRoute = require("./routes/campgrounds");
 const reviewRoutes = require("./routes/reviews");
 const userRoutes = require("./routes/users");
@@ -63,7 +76,7 @@ app.get("/fakeUser", async (req, res, next) => {
 	res.send(newUser);
 });
 
-const MONGODB_URI = `mongodb://127.0.0.1:${process.env.DBport}/yelp-camp`;
+const MONGODB_URI = `mongodb://127.0.0.1:${process.env.DBport}/financeApp`;
 mongoose
 	.connect(MONGODB_URI, {
 		useNewUrlParser: true,
@@ -78,12 +91,13 @@ mongoose
 	});
 
 app.use((req, res, next) => {
+	//console.log(req.session);
+	res.locals.currentUser = req.user;
 	res.locals.success = req.flash("success");
 	res.locals.error = req.flash("error");
 	next();
 });
-app.use("/campgrounds", CampgroundsRoute);
-app.use("/campgrounds/:id/reviews", reviewRoutes);
+app.use("/uploader", uploaderRoute);
 app.use("/users", userRoutes);
 
 app.get("/", (req, res) => {
@@ -100,6 +114,6 @@ app.use((err, req, res, next) => {
 	res.status(statusCode).render("error", { err });
 });
 
-app.listen(3002, () => {
-	console.log(`Servin on port 3002`);
+app.listen(3001, () => {
+	console.log(`Servin on port 3001`);
 });
