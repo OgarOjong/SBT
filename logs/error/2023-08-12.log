@@ -1,0 +1,4 @@
+{2023-08-12 19:16:26:1626: error: getaddrinfo ENOTFOUND middleware.spectranet.com.ng}
+{2023-08-12 19:16:26:1626: error: Cannot read properties of undefined (reading 'tokenType')}
+{2023-08-12 19:16:47:1647: error: getaddrinfo ENOTFOUND middleware.spectranet.com.ng}
+{2023-08-12 19:16:47:1647: error: Cannot read properties of undefined (reading 'tokenType')}

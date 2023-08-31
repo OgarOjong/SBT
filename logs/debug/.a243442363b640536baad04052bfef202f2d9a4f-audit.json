@@ -1,0 +1,60 @@
+{
+    "keep": {
+        "days": false,
+        "amount": 30
+    },
+    "auditLog": "C:\\Users\\HP\\Documents\\FINANCELOADER\\logs\\debug\\.a243442363b640536baad04052bfef202f2d9a4f-audit.json",
+    "files": [
+        {
+            "date": 1691755701680,
+            "name": "C:\\Users\\HP\\Documents\\FINANCELOADER\\logs\\debug\\2023-08-11.log",
+            "hash": "f1722b93c8678ea4d2227a2c114ada274b435e67a4458655198b98e03ff2d565"
+        },
+        {
+            "date": 1691794847188,
+            "name": "C:\\Users\\HP\\Documents\\FINANCELOADER\\logs\\debug\\2023-08-12.log",
+            "hash": "5cbb2af10fceccddf6723ab2c44c51386a6d2c92eae8c6f058cec6a9a52721d4"
+        },
+        {
+            "date": 1691881320560,
+            "name": "C:\\Users\\HP\\Documents\\FINANCELOADER\\logs\\debug\\2023-08-13.log",
+            "hash": "ba303881dd5aa1e0eed612c9f284285e9727ec195bff6c067e2a637e8e267a01"
+        },
+        {
+            "date": 1691969263745,
+            "name": "C:\\Users\\HP\\Documents\\FINANCELOADER\\logs\\debug\\2023-08-14.log",
+            "hash": "955cd5e6aeddd1a55b9fc628b29c90eb46ff7373369e29c5408cfb87999982d4"
+        },
+        {
+            "date": 1692090148917,
+            "name": "C:\\Users\\HP\\Documents\\FINANCELOADER\\logs\\debug\\2023-08-15.log",
+            "hash": "d601d9714395ce0674d68d3d74fa22e79dce4b54a9b58177e51756a09779043b"
+        },
+        {
+            "date": 1692186171464,
+            "name": "C:\\Users\\HP\\Documents\\FINANCELOADER\\logs\\debug\\2023-08-16.log",
+            "hash": "12c6f597211f60e1ab98b0c7c3a5e9227b5323e33a64e74ba88f59c52596a8df"
+        },
+        {
+            "date": 1692249949775,
+            "name": "C:\\Users\\HP\\Documents\\FINANCELOADER\\logs\\debug\\2023-08-17.log",
+            "hash": "0772206755451e807476bba06d8f6f91bc80b67ad986980296a8909fd4b93e2e"
+        },
+        {
+            "date": 1692317434099,
+            "name": "C:\\Users\\HP\\Documents\\FINANCELOADER\\logs\\debug\\2023-08-18.log",
+            "hash": "99d6e2bf18cd4152631b2d0854d2533dda55fa0f0b93502781ed2c961dc90d22"
+        },
+        {
+            "date": 1692426001988,
+            "name": "C:\\Users\\HP\\Documents\\FINANCELOADER\\logs\\debug\\2023-08-19.log",
+            "hash": "c3aeb49bdace24524a23870e7b90506a26d191083e33546c0679a5f17f0f2e8a"
+        },
+        {
+            "date": 1692601674790,
+            "name": "C:\\Users\\HP\\Documents\\FINANCELOADER\\logs\\debug\\2023-08-21.log",
+            "hash": "405b7c08fb797966fe1a6f116d44b1d2520dcde284e99c27a67a1bc3760ffcb6"
+        }
+    ],
+    "hashType": "sha256"
+}

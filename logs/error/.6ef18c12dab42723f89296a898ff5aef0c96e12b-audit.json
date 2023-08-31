@@ -1,0 +1,40 @@
+{
+    "keep": {
+        "days": false,
+        "amount": 30
+    },
+    "auditLog": "C:\\Users\\HP\\Downloads\\FINANCELOADER_REFURBISHED\\logs\\error\\.6ef18c12dab42723f89296a898ff5aef0c96e12b-audit.json",
+    "files": [
+        {
+            "date": 1692619562938,
+            "name": "C:\\Users\\HP\\Downloads\\FINANCELOADER_REFURBISHED\\logs\\error\\2023-08-21.log",
+            "hash": "95645fe30f2a767f00eb0551441f5710527090392081e2eabb7e69e40b9a539a"
+        },
+        {
+            "date": 1692781794863,
+            "name": "C:\\Users\\HP\\Downloads\\FINANCELOADER_REFURBISHED\\logs\\error\\2023-08-23.log",
+            "hash": "587b5d6c1b4addb9cdb55bb9a7ee758963dec8617004612e95a0d92ffc8f6112"
+        },
+        {
+            "date": 1693218526671,
+            "name": "C:\\Users\\HP\\Downloads\\FINANCELOADER_REFURBISHED\\logs\\error\\2023-08-28.log",
+            "hash": "6ff62943fd8093faa7b4091aa22fa9f454f92a382136fb078b4da7782fe2b5f6"
+        },
+        {
+            "date": 1693299902654,
+            "name": "C:\\Users\\HP\\Downloads\\FINANCELOADER_REFURBISHED\\logs\\error\\2023-08-29.log",
+            "hash": "3bbe0e117d98a859bb50aee1cccd53e79f776c86c359a0ee588ec87b318faa40"
+        },
+        {
+            "date": 1693375368377,
+            "name": "C:\\Users\\HP\\Downloads\\FINANCELOADER_REFURBISHED\\logs\\error\\2023-08-30.log",
+            "hash": "fb4e2d5440edba49fb76ed46cf7728ac2117e095b9749814226c24f35f00fa20"
+        },
+        {
+            "date": 1693476134202,
+            "name": "C:\\Users\\HP\\Downloads\\FINANCELOADER_REFURBISHED\\logs\\error\\2023-08-31.log",
+            "hash": "0b0785c57cf45d21ff5c692758c4efcecd2dc59698cf5e4f4d729b74c02f9dd2"
+        }
+    ],
+    "hashType": "sha256"
+}
