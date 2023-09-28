@@ -1,0 +1,94 @@
+<%- include('../uploaderPartials/header.ejs') %>
+<!--Container Main start-->
+<div class="height-100">
+    <h4 class="pt-4">Upload</h4>
+    <% if (messages.error.length > 0) {%>
+    <div class="alert alert-danger alert-dismissible">
+        <button type="button" class="btn-close btn-sm" data-bs-dismiss="alert"></button>
+        <%= messages.error%>
+    </div>
+    <% } %> <% if (messages.success.length > 0) {%>
+    <div class="alert alert-success alert-dismissible">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <%= messages.success%>
+    </div>
+    <% } %>
+    <div class="col-4 offset-3" style="background-color: #f2f2f2; padding: 20px 40px; border-radius: 10px">
+        <form action="./upload" method="post" enctype="multipart/form-data" autocomplete="off">
+            <div class="form-group mb-4">
+                <label for="email" class="sr-only">Bank</label>
+                <select name="bank" id="bank" class="form-control">
+                    <% banks.forEach(bank => {%>
+                    <option value="<%= bank?.name%>"><%= bank?.name%></option>
+                    <% }) %>
+                </select>
+            </div>
+            <div class="form-group mb-4">
+                <label for="password" class="sr-only">Location</label>
+                <select name="location" id="location" class="form-control"></select>
+            </div>
+            <div class="form-group mb-4">
+                <label for="password" class="sr-only">Select File</label>
+                <input type="file" name="upload" id="upload" class="form-control" placeholder="Upload File" />
+            </div>
+            <button name="login" id="login" class="btn btn-block login-btn btn-dark mb-4" type="submit">
+                Upload
+            </button>
+        </form>
+    </div>
+</div>
+
+<!--Container Main end-->
+<%- include('../uploaderPartials/footer.ejs') %>
+
+<script>
+    const bankLoc = [{
+            name: "First Bank Plc",
+            locations: ["Lagos", "Abuja"],
+        },
+        {
+            name: "Guarantee Trust Bank",
+            locations: ["Lagos"],
+        },
+        {
+            name: "First City Monument Bank(FCMB)",
+            locations: ["Lagos", "Abuja", "PHC"],
+        },
+        {
+            name: "Zenith Bank",
+            locations: ["Lagos", "Abuja", "PHC", "Ibadan"],
+        },
+        {
+            name: "Eco Bank",
+            locations: ["Lagos", "Abuja"],
+        },
+        {
+            name: "FIDELITY Bank",
+            locations: ["Lagos"],
+        },
+        {
+            name: "United Bank of Africa(UBA)",
+            locations: ["Lagos"],
+        },
+    ];
+
+    // Populate location dropdown based on selected bank
+    function populateLocationDropdown(selectedBank) {
+        const location = bankLoc.find((b) => b.name === selectedBank);
+        const locationElement = document.getElementById("location");
+        locationElement.innerHTML = "";
+        location.locations.map((loc) => {
+            locationElement.innerHTML += `<option value="${loc}">${loc}</option>`;
+        });
+    }
+
+    // Initial population of location dropdown
+    const initialSelectedBank = document.getElementById("bank").value;
+    populateLocationDropdown(initialSelectedBank);
+
+    // Add change event listener to the bank dropdown
+    document.getElementById("bank").addEventListener("change", function () {
+        const selectedValue = this.value;
+        populateLocationDropdown(selectedValue);
+    });
+</script>

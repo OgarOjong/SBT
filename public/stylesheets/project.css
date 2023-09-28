@@ -1,0 +1,37 @@
+.logoHolder {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.user-header {
+	display: flex;
+	flex-direction: column;
+	/* justify-content: space-between; */
+	margin-bottom: 1.5rem;
+}
+.banklogo {
+	position: absolute !important;
+	right: 50px !important ;
+	top: 10px !important;
+	width: 10% !important;
+}
+.modal-dialog {
+	max-width: 80%; /* Adjust as needed */
+}
+
+/*
+table {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+tr {
+	display: flex;
+	justify-content: space-between;
+}
+td {
+	text-align: center;
+	padding: 5px;
+	width: 40%;
+}
+*/

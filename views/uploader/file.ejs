@@ -1,0 +1,124 @@
+<%- include('../uploaderPartials/header.ejs') %>
+<!--Container Main start-->
+<div class="height-100 mt-10">
+    <h4 class="pt-4">File</h4>
+
+    <% if (success && success.length) { %>
+    <div class="alert alert-success alert-dismissible fade show" style="width: 100%" role="alert">
+        <strong><%= success %> </strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <% } %> <% if (error && error.length) { %>
+    <div class="alert alert-danger alert-dismissible fade show" style="width: 100%" role="alert">
+        <strong><%= error %> </strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <% } %>
+    <div class="user-details pt-4">
+        <p>Bank: <b><%= file.bank %></b></p>
+        <p>Location: <%= file.location %></p>
+        <p>Date: <%= file?.createdAt%></p>
+    </div>
+
+    <div class="table-responsive-sm">
+        <table class="table table-striped table-bordered table-hover" id="fileslist">
+            <thead>
+                <tr>
+                    <% headers.forEach( header => {%>
+                    <% if(header !=='Balance' && header !== 'Instrument' && header !== 'Branch' && header !== 'Debit') {%>
+                    <th><%= header %></th>
+                    <% } %>
+
+                    <% })%>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(let i = 0; i < file.csv.length; i++){%>
+                <% if (file.csv[i]['status'] !== 'updated') { %>
+                <tr>
+                    <% for(let k = 0; k < headers.length; k++){%>
+                    <% if (headers[k] !== 'Balance' && headers[k] !== 'Instrument' && headers[k] !== 'Branch' && headers[k] !== 'Debit') { %>
+                    <!-- // show balance if role is auditor -->
+                    <td><%= file.csv[i][headers[k]] %></td>
+                    <% } %>
+                    <% }%>
+                    <td><button
+                            onclick="renew('<%=i%>','<%= file_id %>','<%=file.csv[i][`data_ref`]%>','<%=file.csv[i][`Deposit`]%>','<%=file.bank%>','<%=file.location%>','<%=file.csv[i][`Credit`]%>')"
+                            class="btn btn-primary btn-sm">Refill</button></td>
+                </tr>
+                <% } %>
+                <% }%>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+<!-- The Modal -->
+<button type="button" style="display: none;" id="toggleModal" class="btn btn-primary" data-bs-toggle="modal"
+    data-bs-target="#renewModal">
+    Open modal
+</button>
+</div>
+<div class="modal" style="position:absolute; left:800px;" id="renewModal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Modal Heading</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form action="/uploader/submit-renew-form" method="post" autocomplete="off">
+                    <div class="form-group mb-4">
+                        <label for="email" class="sr-only">Payment Option</label>
+                        <select name="paymentchannel" id="paymentchannel" class="form-control">
+                            <option value="covalence">Covalence</option>
+                            <option value="covalence_multiple">Covalence_multiple</option>
+                            <option value="24online">24 Online</option>
+                            <option value="Dealer">Dealer</option>
+                            <option value="Shop">Shop</option>
+                            <option value="Sweep">Sweep</option>
+                            <option value="Others">Others</option>
+                        </select>
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="password" class="sr-only">Customer ID</label>
+                        <input type="hidden" value="" id="renew_id" name="renew_id">
+                        <input type="hidden" value="" id="file_id" name="file_id">
+                        <input type="hidden" value="" id="data_ref" name="data_ref">
+                        <input type="hidden" value="" id="Deposit" name="Deposit">
+                        <input type="hidden" value="" id="bank" name="bank">
+                        <input type="hidden" value="" id="location" name="location">
+                        <input type="hidden" value="" id="Credit" name="Credit">
+                        <input type="text" name="customer_id" id="customer_id" class="form-control"
+                            placeholder="Curresponding ID" />
+                    </div>
+                    <button class="btn btn-block login-btn btn-dark mb-4" type="submit">Submit</button>
+                </form>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--Container Main end-->
+<script type='text/javascript'>
+    function renew(index, file_id, data_ref, Deposit, bank, location, Credit) {
+        $('#renew_id').val(index)
+        $('#file_id').val(file_id)
+        $('#data_ref').val(data_ref)
+        $('#Deposit').val(Deposit)
+        $('#bank').val(bank)
+        $('#location').val(location)
+        $('#Credit').val(Credit)
+        $('#toggleModal').click();
+    }
+</script>
+<%- include('../uploaderPartials/footer.ejs') %>

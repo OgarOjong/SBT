@@ -1,0 +1,32 @@
+<%- include('../uploaderPartials/authheader.ejs') %>
+<main class="d-flex align-items-center min-vh-100 py-3 py-md-0">
+    <div class="container">
+        <% if (success && success.length) { %>
+        <div class="alert alert-success alert-dismissible fade show" style="width: 100%" role="alert">
+            <strong><%= success %> </strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <% } %> <% if (error && error.length) { %>
+        <div class="alert alert-danger alert-dismissible fade show" style="width: 100%" role="alert">
+            <strong><%= error %> </strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <% } %>
+        <div class="col-6 offset-3" style="background-color: #f2f2f2; padding: 20px 40px; border-radius: 10px">
+            <p>Fogot Password</p>
+            <form action="./forgot" method="post" method="post" autocomplete="off">
+                <div class="form-group mb-4">
+                    <label for="email" class="sr-only">Email</label>
+                    <input type="email" name="emails" id="emails" class="form-control"
+                        placeholder="Enter Email address" />
+
+                </div>
+
+                <button name="login" id="login" class="btn btn-block login-btn btn-dark mb-4" type="submit">
+                    Submit
+                </button>
+            </form>
+        </div>
+    </div>
+</main>
+<%- include("../uploaderPartials/authfooter.ejs") %>

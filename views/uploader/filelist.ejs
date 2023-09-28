@@ -1,0 +1,58 @@
+<%- include('../uploaderPartials/header.ejs') %>
+<!--Container Main start-->
+<div class="height-100 mt-10">
+	<h4 class="pt-4">Filelist</h4>
+	<% if (success && success.length) { %>
+	<div class="alert alert-success alert-dismissible fade show" style="min-width: 100%" role="alert">
+		<strong><%= success %> </strong>
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+	<% } %> <% if (error && error.length) { %>
+	<div class="alert alert-danger alert-dismissible fade show" style="min-width: 100%" role="alert">
+		<strong><%= error %> </strong>
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+	<% } %>
+	<div class="table-responsive-sm">
+		<table class="table table-striped table-bordered table-hover" id="filelist">
+			<thead>
+				<tr>
+					<th>S/N</th>
+					<th>File Id</th>
+					<th>Uploader</th>
+					<th>Date</th>
+					<th>File Date</th>
+					<th>Bank</th>
+					<th>Location</th>
+					<th></th>
+					<th>change status</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% files.forEach((file, index) => {%>
+				<tr>
+					<td><%= ++index %></td>
+					<td><%= file?._id %></td>
+					<td><%= file?.uploaderEmail %></td>
+					<td><%= file?.createdAt %></td>
+					<td><%= file?.createdAt %></td>
+					<td><%= file?.bank %></td>
+					<td><%= file?.location %></td>
+					<td>
+						<a href="./<%= file?._id %>">
+							<button class="btn btn-primary btn-sm">View</button>
+						</a>
+					</td>
+					<td>
+						<a href="/uploader/file/archive/<%= file?._id %>">
+							<button class="btn btn-primary btn-sm">Archive</button>
+						</a>
+					</td>
+
+				</tr>
+				<% }); %>
+			</tbody>
+		</table>
+	</div>
+</div>
+<%- include('../uploaderPartials/footer.ejs') %>

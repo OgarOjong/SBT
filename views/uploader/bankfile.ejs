@@ -1,0 +1,35 @@
+<%- include('../uploaderPartials/header.ejs') %>
+
+<!--Container Main start-->
+<div class="height-100">
+    <h4 class="pt-4">BankFocus Dashboard</h4>
+    <% if (error && error.length) {%>
+    <div class="alert alert-danger alert-dismissible">
+        <button type="button" class="btn-close btn-sm" data-bs-dismiss="alert"></button>
+        <%= error%>
+    </div>
+    <% } %> <% if (success && success.length) {%>
+    <div class="alert alert-success alert-dismissible">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <%= success%>
+    </div>
+    <% } %>
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px">
+        <% banks.forEach((bank) => { %>
+        <div class="d-flex p-4" style="background-color: <%= bank.color %>; border-radius: 10px">
+            <img src="<%= bank.logo %>" class="" alt="" srcset="" style="width: 100px; margin-right: 10px" />
+            <div>
+                <p><%= bank.name %></p>
+                <a href="/uploader/<%= bank.name %>/pendings" style="color: white; text-decoration: none">
+                    <span>Pending: <%= bank.pending.length%> <i class="bx bx-eye"></i></span><br />
+                </a>
+                <a href="/uploader/<%= bank.name %>/updateds" style="color: white; text-decoration: none">
+                    <span>Updated: <%= bank.updated.length%> <i class="bx bx-eye"></i></span>
+                </a>
+            </div>
+        </div>
+        <% }) %>
+    </div>
+</div>
+
+<%- include('../uploaderPartials/footer.ejs') %>
