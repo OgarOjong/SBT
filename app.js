@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const methodOveride = require("method-override");
 const morgan = require("morgan");
 const ejsMate = require("ejs-mate");
+const helmet = require("helmet");
 //const https = require("https");
 //process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 require("dotenv").config();
@@ -30,6 +31,43 @@ app.use(methodOveride("_method"));
 app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+/*app.use(
+	helmet({
+		contentSecurityPolicy: {
+			useDefaults: true,
+			directives: {
+				defaultSrc: ["'self'"]
+				"script-src": [
+					"'self'",
+					"'unsafe-inline'", "'unsafe-eval'"
+					"https://cdn.jsdelivr.net",
+					"https://cdnjs.cloudflare.com",
+					"https://ajax.googleapis.com",
+					"https://cdn.datatables.net",
+					"https://fonts.googleapis.com",
+					"https://stackpath.bootstrapcdn.com",
+				],
+				"img-src": [
+					"'self'",
+					"https://cdn-icons-png.flaticon.com",
+					"https://res.cloudinary.com",
+					"https://www.spectranet.com.ng/",
+				],
+				defaultSrc: ["'self'"],
+				"style-src": [
+					"'self'",
+					"'unsafe-inline'",
+					"https://cdn.jsdelivr.net",
+					"https://cdnjs.cloudflare.com",
+					"https://cdn.datatables.net",
+					"unsafe-inline",
+					"unsafe-eval",
+				],
+				//	"font-src": ["'self'", "https://fonts.googleapis.com",],
+			},
+		},
+	})
+); */
 app.use(express.static(path.join(__dirname, "public")));
 const loggerMiddleware = (req, res, next) => {
 	console.log(`${new Date()} ---Request [${req.method}] [${req.url}]`);
@@ -42,7 +80,7 @@ const sessionConfig = {
 	resave: false,
 	saveUninitialized: true,
 	cookie: {
-		httpOnly: true,
+		httpOnly: true, //ensure that they can only be accessed by the server and are not accessible to client-side scripts
 		// expires: Date.now() + 1000000 * 60 * 60 * 24 * 7,
 		maxAge: 60 * 60 * 1000, // 1000000 * 60 * 60 * 24 * 7,
 	},

@@ -89,7 +89,7 @@ exports.BANKS = [
 		name: "United Bank of Africa(UBA)",
 		logo: "https://res.cloudinary.com/onethought/image/upload/v1692398235/UBA_ihiv4w.png",
 		header: [
-			"Transaction Date",
+			"TransactionDate",
 			"Transaction Narration",
 			"Value Date",
 			"Withdrawal",

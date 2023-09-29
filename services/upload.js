@@ -15,6 +15,8 @@ exports.upload = async (payload) => {
 	const users = payload.user;
 	const { bank, location } = payload.body;
 	let status = { ok: true, message: "" };
+	let transactionDateRegx =
+		/^\d{4}\/(0?[1-9]|1[0-2])\/(0?[1-9]|[12][0-9]|3[01])\/$/;
 
 	const bankName = BANKS.find((singlebank) => singlebank.name === bank);
 	if (!bankName) {
@@ -48,8 +50,22 @@ exports.upload = async (payload) => {
 				})
 				.on("data", (data) => {
 					console.log("checking for each data:", { data });
+					const { TransactionDate } = data;
+					console.log("The transactionDate", TransactionDate);
+					console.log(
+						"transactionDate test",
+						transactionDateRegx.test(TransactionDate)
+					);
+					if (!transactionDateRegx.test(TransactionDate)) {
+						reject(new Error("Invalid TransactionDate Format"));
+						return {
+							ok: false,
+							message: "Wrong TransactionDate Format",
+						};
+					}
 					result.push({
 						...data,
+
 						data_ref: uuidv4(),
 						//data_ref: String(new Date().getTime()),
 						customer_id: "",
@@ -99,11 +115,12 @@ exports.upload = async (payload) => {
 */
 		return status;
 	} catch (error) {
-		console.error("Error uploading CSV:", error);
+		console.log({ error });
+		console.log("chekcikng Error", error.message);
 		// throw new Error("Error uploading CSV");
 		return {
 			ok: false,
-			message: "Error uploading CSV please check bank format",
+			message: error.message,
 		};
 	}
 };
