@@ -1,5 +1,6 @@
 <%- include('../uploaderPartials/header.ejs') %>
 
+<<<<<<< HEAD
 <!--Container Main start-->
 <div class="height-100">
     <h4 class="pt-4">Dashboard</h4>
@@ -93,5 +94,95 @@
 </script>
 
 </body>
+=======
+        <!--Container Main start-->
+        <div class="height-100">
+            <h4 class="pt-4">Dashboard</h4>
+            <% if (error && error.length) {%>
+                <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="btn-close btn-sm" data-bs-dismiss="alert"></button>
+                    <%= error%>
+                </div>
+                <% } %>
+
+                <% if (success && success.length) {%>
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        <%= success%>
+                    </div>
+                <% } %>
+            <div class="row">
+                <div class="col-md-4">
+                    <div style="background-color: dodgerblue; border-radius: 10px; height: 170px; color: white; padding: 20px;">
+                        <p>Total No of Files</p>
+                        <span>20</span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div style="background-color: crimson; border-radius: 10px; height: 170px; color: white; padding: 20px;">
+                        <p>Total No of Admins</p>
+                        <span>48</span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div style="background-color: #4723d9; border-radius: 10px; height: 170px; color: white; padding: 20px;">
+                        <p>Total No of Roles</p>
+                        <span>20</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+      
+        <!--Container Main end-->
+        <script type='text/javascript'
+            src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js'></script>
+        <script type='text/javascript' src='#'></script>
+        <script type='text/javascript' src='#'></script>
+        <script type='text/javascript' src='#'></script>
+        <script type='text/javascript'>document.addEventListener("DOMContentLoaded", function (event) {
+
+                const showNavbar = (toggleId, navId, bodyId, headerId) => {
+                    const toggle = document.getElementById(toggleId),
+                        nav = document.getElementById(navId),
+                        bodypd = document.getElementById(bodyId),
+                        headerpd = document.getElementById(headerId)
+
+                    // Validate that all variables exist
+                    if (toggle && nav && bodypd && headerpd) {
+                        toggle.addEventListener('click', () => {
+                            // show navbar
+                            nav.classList.toggle('show')
+                            // change icon
+                            toggle.classList.toggle('bx-x')
+                            // add padding to body
+                            bodypd.classList.toggle('body-pd')
+                            // add padding to header
+                            headerpd.classList.toggle('body-pd')
+                        })
+                    }
+                }
+
+                showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header')
+
+                /*===== LINK ACTIVE =====*/
+                const linkColor = document.querySelectorAll('.nav_link')
+
+                function colorLink() {
+                    if (linkColor) {
+                        linkColor.forEach(l => l.classList.remove('active'))
+                        this.classList.add('active')
+                    }
+                }
+                linkColor.forEach(l => l.addEventListener('click', colorLink))
+
+                // Your code to run since DOM is loaded and ready
+            });</script>
+        <script type='text/javascript'>var myLink = document.querySelector('a[href="#"]');
+            myLink.addEventListener('click', function (e) {
+                e.preventDefault();
+            });</script>
+
+    </body>
+>>>>>>> d022fc0b40e9da196236476d6a673b94118321ec
 
 </html>
