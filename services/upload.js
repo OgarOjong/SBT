@@ -49,18 +49,31 @@ exports.upload = async (payload) => {
 					}
 				})
 				.on("data", (data) => {
-					console.log("checking for each data:", { data });
-					result.push({
-						...data,
-						data_ref: uuidv4(),
-						//data_ref: String(new Date().getTime()),
-						customer_id: "",
-						location: location,
-						paymentchannel: "",
-						status: "",
-						updater: "",
-						updatedDate: "",
+					// Initialize a flag to indicate if all values are empty or null
+					let allValuesEmptyOrNull = true;
+					const isEmptyOrNull = Object.values(data).some((value) => {
+						const trimmedValue = (value || "").trim(); // Trim the value
+						if (trimmedValue !== null || trimmedValue !== "") {
+							allValuesEmptyOrNull = false; // if atlease one value is not empty this will defaut to true
+						}
+						//return trimmedValue === null || trimmedValue === "";
 					});
+					//console.log("isEmptyorNull", isEmptyOrNull);
+					if (!allValuesEmptyOrNull) {
+						result.push({
+							...data,
+							data_ref: uuidv4(),
+							//data_ref: String(new Date().getTime()),
+							customer_id: "",
+							location: location,
+							paymentchannel: "",
+							status: "",
+							updater: "",
+							updatedDate: "",
+						});
+					} else {
+						console.log("Emtyp data skipping", data);
+					}
 				})
 				.on("end", () => {
 					resolve(true);
