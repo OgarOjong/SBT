@@ -3,7 +3,6 @@
 <div class="height-100 mt-10">
 	<h4 class="pt-4">Filelist</h4>
 	<% if (success && success.length) { %>
-<<<<<<< HEAD
 	<div class="alert alert-success alert-dismissible fade show" style="min-width: 100%" role="alert">
 		<strong><%= success %> </strong>
 		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -12,30 +11,6 @@
 	<div class="alert alert-danger alert-dismissible fade show" style="min-width: 100%" role="alert">
 		<strong><%= error %> </strong>
 		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-=======
-	<div
-		class="alert alert-success alert-dismissible fade show"
-		style="min-width: 100%"
-		role="alert">
-		<strong><%= success %> </strong>
-		<button
-			type="button"
-			class="btn-close"
-			data-bs-dismiss="alert"
-			aria-label="Close"></button>
-	</div>
-	<% } %> <% if (error && error.length) { %>
-	<div
-		class="alert alert-danger alert-dismissible fade show"
-		style="min-width: 100%"
-		role="alert">
-		<strong><%= error %> </strong>
-		<button
-			type="button"
-			class="btn-close"
-			data-bs-dismiss="alert"
-			aria-label="Close"></button>
->>>>>>> d022fc0b40e9da196236476d6a673b94118321ec
 	</div>
 	<% } %>
 	<div class="table-responsive-sm">
@@ -50,12 +25,10 @@
 					<th>Bank</th>
 					<th>Location</th>
 					<th></th>
-<<<<<<< HEAD
-					<% if (user.role ==='auditor') { %>
-					<th>change status</th>
-					<% } %>
-=======
->>>>>>> d022fc0b40e9da196236476d6a673b94118321ec
+					<<<<<<< HEAD <% if (user.role ==='auditor') { %> <th>change status</th>
+						<% } %>
+						=======
+						>>>>>>> d022fc0b40e9da196236476d6a673b94118321ec
 				</tr>
 			</thead>
 			<tbody>
@@ -73,24 +46,19 @@
 							<button class="btn btn-primary btn-sm">View</button>
 						</a>
 					</td>
-<<<<<<< HEAD
-					<% if (user.role ==='auditor') { %>
-					<td>
+					<<<<<<< HEAD <% if (user.role ==='auditor') { %> <td>
 						<a href="/uploader/file/archive/<%= file?._id %>">
 							<button class="btn btn-primary btn-sm">Archive</button>
 						</a>
-					</td>
-					<% } %>
-=======
->>>>>>> d022fc0b40e9da196236476d6a673b94118321ec
+						</td>
+						<% } %>
+						=======
+						>>>>>>> d022fc0b40e9da196236476d6a673b94118321ec
 				</tr>
 				<% }); %>
 			</tbody>
 		</table>
 	</div>
 </div>
-<<<<<<< HEAD
-<%- include('../uploaderPartials/footer.ejs') %>
-=======
-<%- include('../uploaderPartials/footer.ejs') %>
->>>>>>> d022fc0b40e9da196236476d6a673b94118321ec
+<<<<<<< HEAD <%- include('../uploaderPartials/footer.ejs') %>=======<%- include('../uploaderPartials/footer.ejs') %>>
+	>>>>>> d022fc0b40e9da196236476d6a673b94118321ec
