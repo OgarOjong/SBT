@@ -25,7 +25,9 @@
 					<th>Bank</th>
 					<th>Location</th>
 					<th></th>
+					<% if (user.role ==='auditor') { %>
 					<th>change status</th>
+					<% } %>
 				</tr>
 			</thead>
 			<tbody>
@@ -43,12 +45,13 @@
 							<button class="btn btn-primary btn-sm">View</button>
 						</a>
 					</td>
+					<% if (user.role ==='auditor') { %>
 					<td>
 						<a href="/uploader/file/archive/<%= file?._id %>">
 							<button class="btn btn-primary btn-sm">Archive</button>
 						</a>
 					</td>
-
+					<% } %>
 				</tr>
 				<% }); %>
 			</tbody>

@@ -43,29 +43,15 @@ exports.upload = async (payload) => {
 							message:
 								"Invalid CSV file. Headers do not match the expected format for the selected bank.",
 						};
-						reject(new Error("Invalid CSV headers"));
+						reject(new Error(status.message));
 					} else {
 						console.log("we are good");
 					}
 				})
 				.on("data", (data) => {
 					console.log("checking for each data:", { data });
-					const { TransactionDate } = data;
-					console.log("The transactionDate", TransactionDate);
-					console.log(
-						"transactionDate test",
-						transactionDateRegx.test(TransactionDate)
-					);
-					if (!transactionDateRegx.test(TransactionDate)) {
-						reject(new Error("Invalid TransactionDate Format"));
-						return {
-							ok: false,
-							message: "Wrong TransactionDate Format",
-						};
-					}
 					result.push({
 						...data,
-
 						data_ref: uuidv4(),
 						//data_ref: String(new Date().getTime()),
 						customer_id: "",
@@ -94,25 +80,7 @@ exports.upload = async (payload) => {
 			location
 		);
 		status = updatefile;
-		/*	for (const item of result) {
-			await Files.create({
-				bank,
-				location,
-				ip: payload.ip,
-				os: userOSName,
-				...item, // Spread the properties of each item
-			});
-		}
-*/
-		/*
-		await Files.create({
-			bank,
-			location,
-			ip: payload.ip,
-			os: userOSName,
-			csv: result,
-		});
-*/
+
 		return status;
 	} catch (error) {
 		console.log({ error });
