@@ -25,10 +25,8 @@
 					<th>Bank</th>
 					<th>Location</th>
 					<th></th>
-					<<<<<<< HEAD <% if (user.role ==='auditor') { %> <th>change status</th>
-						<% } %>
-						=======
-						>>>>>>> d022fc0b40e9da196236476d6a673b94118321ec
+					<% if (user.role ==='auditor') { %> <th>change status</th>
+					<% } %>
 				</tr>
 			</thead>
 			<tbody>
@@ -46,19 +44,17 @@
 							<button class="btn btn-primary btn-sm">View</button>
 						</a>
 					</td>
-					<<<<<<< HEAD <% if (user.role ==='auditor') { %> <td>
+					<% if (user.role ==='auditor') { %> <td>
 						<a href="/uploader/file/archive/<%= file?._id %>">
 							<button class="btn btn-primary btn-sm">Archive</button>
 						</a>
-						</td>
-						<% } %>
-						=======
-						>>>>>>> d022fc0b40e9da196236476d6a673b94118321ec
+					</td>
+					<% } %>
+
 				</tr>
 				<% }); %>
 			</tbody>
 		</table>
 	</div>
 </div>
-<<<<<<< HEAD <%- include('../uploaderPartials/footer.ejs') %>=======<%- include('../uploaderPartials/footer.ejs') %>>
-	>>>>>> d022fc0b40e9da196236476d6a673b94118321ec
+<%- include('../uploaderPartials/footer.ejs') %>
