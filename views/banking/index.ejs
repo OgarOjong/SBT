@@ -1,0 +1,62 @@
+<%- include('../uploaderPartials/header.ejs') %>
+<style>
+    @media (min-width: 768px) {
+        .col-md-6.offset-md-3 {
+            width: 50%;
+            margin: 0 auto;
+        }
+    }
+
+    /* .main {
+        background-image: url("/Images/jara.jpg");
+        background-size: cover;
+    } */
+</style>
+<main class="d-flex align-items-center min-vh-100 py-3 py-md-0 main">
+    <div class="container">
+        <% if (success && success.length) { %>
+        <div class="alert alert-success alert-dismissible fade show" style="width: 100%" role="alert">
+            <strong><%= success %> </strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <% } %> <% if (error && error.length) { %>
+        <div class="alert alert-danger alert-dismissible fade show" style="width: 100%" role="alert">
+            <strong><%= error %> </strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <% } %>
+        <div class="col-12 col-md-6 offset-md-3" style="background-color: #a5a5a5; padding: 20px; border-radius: 10px">
+            <p style="font-weight: bold;">Banking Function</p>
+            <form action="/jara/dealer/" method="post" autocomplete="off"
+                style="display: flex; flex-direction: column;">
+                <div
+                    style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <div class="form-group mb-3" style="flex: 1; margin-right: 10px;">
+                        <label for="datepicker" class="">Start Date</label>
+                        <input id="datepicker" name="dated" class="form-control datepicker" type="date" />
+                    </div>
+                    <div class="form-group mb-3" style="flex: 1; margin-right: 10px;">
+                        <label for="datepicker" class="">End Date</label>
+                        <input id="datepicker" name="dated" class="form-control datepicker" type="date" />
+                    </div>
+                    <div class="form-group mb-3" style="flex: 1; margin-right: 10px;">
+                        <label for="dealercode" class="">Bank</label>
+                        <input id="dealercode" name="dealercode" placeholder="LGR000-spectranet" class="form-control"
+                            type="text" />
+                    </div>
+                    <div class="form-group mb-3" style="flex: 1; margin-right: 10px;">
+                        <label for="dealercode" class="">Location</label>
+                        <input id="dealercode" name="dealercode" placeholder="LGR000-spectranet" class="form-control"
+                            type="text" />
+                    </div>
+                </div>
+                <button name="login" id="login" class="btn btn-block btn-dark mb-3" type="submit">
+                    Submit
+                </button>
+            </form>
+
+        </div>
+    </div>
+</main>
+
+<%- include("../uploaderPartials/footer.ejs") %>

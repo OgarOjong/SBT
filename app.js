@@ -116,6 +116,7 @@ passport.deserializeUser(User.deserializeUser());
 const uploaderRoute = require("./routes/uploader");
 const jaraRoute = require("./routes/jaraRoute");
 const userRoutes = require("./routes/users");
+const bankingRoutes = require("./routes/banking");
 
 const MONGODB_URI = `mongodb://127.0.0.1:${process.env.DBport}/financesApp`;
 mongoose
@@ -142,6 +143,7 @@ app.use(loggerMiddleware);
 app.use("/uploader", uploaderRoute);
 app.use("/users", userRoutes);
 app.use("/jara", jaraRoute);
+app.use("/banking", bankingRoutes);
 
 app.all("*", (req, res, next) => {
 	next(new ExpressError("PAGE NOT FOUND!!", 404));

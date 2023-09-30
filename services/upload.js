@@ -58,7 +58,7 @@ exports.upload = async (payload) => {
 						}
 						//return trimmedValue === null || trimmedValue === "";
 					});
-					//console.log("isEmptyorNull", isEmptyOrNull);
+
 					if (!allValuesEmptyOrNull) {
 						result.push({
 							...data,
@@ -72,7 +72,7 @@ exports.upload = async (payload) => {
 							updatedDate: "",
 						});
 					} else {
-						console.log("Emtyp data skipping", data);
+						console.log("Empty data skipping", data);
 					}
 				})
 				.on("end", () => {
@@ -117,7 +117,7 @@ exports.updateFile = async (payload) => {
 			file_id,
 			depositAmount,
 		} = payload;
-		console.log("Values passed for updating", payload);
+		//console.log("Values passed for updating", payload);
 		const isUpdated = await Files.findOne({
 			"csv.data_ref": data_ref,
 			status: "updated",
