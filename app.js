@@ -26,7 +26,7 @@ const RedisStore = require("connect-redis").default;
 app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
-
+const paymentWorker = require("./queue/workerQueue");
 app.use(methodOveride("_method"));
 app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -144,7 +144,7 @@ app.use("/uploader", uploaderRoute);
 app.use("/users", userRoutes);
 app.use("/jara", jaraRoute);
 app.use("/banking", bankingRoutes);
-
+//paymentWorker.start();
 app.all("*", (req, res, next) => {
 	next(new ExpressError("PAGE NOT FOUND!!", 404));
 });

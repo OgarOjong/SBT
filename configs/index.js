@@ -12,8 +12,11 @@ const config = {
 		password: process.env.SMSPASSWORD,
 		source: process.env.SMSSOURCE,
 	},
+	REDIS: {
+		redisURL: process.env.REDIS_URL || "redis://127.0.0.1:6379/",
+	},
 };
 
-console.log(config.COVALENSE.rsvURL);
+//console.log(config.COVALENSE.rsvURL);
 
 module.exports = config;

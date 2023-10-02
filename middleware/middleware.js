@@ -51,6 +51,8 @@ exports.transactionUpdateStatus = async (req, res, next) => {
 	);
 
 	if (transactionUpdateStatus.data.csv.status === "") {
+		//const successResponse = { ok: true, message: "transaction processed" };
+		//res.json(successResponse);
 		next();
 	} else {
 		console.log("it is not null don't continue");

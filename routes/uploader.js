@@ -36,7 +36,8 @@ const {
 	getBankFilesByUpdate,
 } = require("../services/bankValidator");
 const { logger } = require("../utils/logger");
-const { object } = require("joi");
+const { initQueue } = require("../queue/producerQueue");
+//const { object } = require("joi");
 //const bankConfig = require("../configs/banks");
 
 const multerUpload = multer({
@@ -249,32 +250,47 @@ router.post(
 			bank,
 			location,
 		} = req.body;
+		console.log("reqPayload", req.body);
 		customer_id = customer_id.trim();
 		const amount = Deposit || Credit;
+		console.log("actual money passed", amount);
 		const updater = renewer?.name;
-		const updaters = renewer?.name.split(" ");
+		const paymentAgent = renewer?.name.split(" ");
 
 		if (paymentchannel === "covalence") {
 			try {
 				const customer = await customerVerification(customer_id);
-				console.log("customer notification", customer);
-				console.log("Amount Depoited", amount);
-				const depositAmount = amount.replace(/,/g, "").replace(/^[^0-9]+/, "");
-				const concatenatedString = bank.replace(/\s+/g, "");
-
+				//const depositAmount = parseInt(amount.replace(/,/g, "").replace(/^[^0-9]+/, ""));
+				const depositAmount = amount.replace(/[^0-9]/g, "");
+				const bankName = bank.replace(/\s+/g, "");
 				if (!customer.ok) {
 					req.flash("error", "Please check the customer ID");
 					return res.redirect(`/uploader/${bank}/pendings/`);
 				}
 				let { ok, payload } = customer;
 				let { custReference } = payload;
+				let paymentAmount = Number(depositAmount);
+				console.log("paymentAmount222", paymentAmount);
+				let paymentAGENT = paymentAgent[0];
 
-				const paymentNotifier = await covalencepayment(
+				const paymentPayload = {
+					customer_id,
+					data_ref,
+					paymentAmount,
+					bankName,
+					paymentAGENT,
+					bank,
+					paymentchannel,
+				};
+				await initQueue(paymentPayload);
+
+				/*	const paymentNotifier = await covalencepayment(
 					customer_id,
 					data_ref,
 					parseInt(depositAmount),
-					concatenatedString,
-					updaters[0]
+					bankName,
+					paymentAgent[0],
+					bank
 				);
 				console.log("Amount", parseInt(depositAmount));
 				console.log(`payment notifier: ${paymentNotifier}`);
@@ -296,8 +312,8 @@ router.post(
 					updater,
 					file_id,
 					depositAmount,
-				});
-				req.flash("success", paymentNotifier.payload);
+				}); */
+				req.flash("success", "updated-Refill Request submitted");
 				return res.redirect(`/uploader/${bank}/pendings/`);
 			} catch (error) {
 				logger.error(`update error: ${error}`);
@@ -349,7 +365,7 @@ router.post(
 			.replace(/\s+/g, "");
 		console.log("checking for deposited", depositAmount);
 
-		const concatenatedString = bank.replace(/\s+/g, "");
+		const bankName = bank.replace(/\s+/g, "");
 		if (paymentchannel === "covalence") {
 			try {
 				const customer = await customerVerification(customer_id);
@@ -359,13 +375,13 @@ router.post(
 					return res.redirect(`./${file_id}`);
 				}
 
-				//const characterCheck = concatenatedString.replace(/\D/g, "");
+				//const characterCheck = bankName.replace(/\D/g, "");
 
 				const paymentNotifier = await covalencepayment(
 					customer_id,
 					data_ref,
 					parseInt(depositAmount),
-					concatenatedString,
+					bankName,
 					updaters[0]
 				);
 				console.log("paymentNoifier", paymentNotifier);
