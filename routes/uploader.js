@@ -261,7 +261,8 @@ router.post(
 			try {
 				const customer = await customerVerification(customer_id);
 				//const depositAmount = parseInt(amount.replace(/,/g, "").replace(/^[^0-9]+/, ""));
-				const depositAmount = amount.replace(/[^0-9]/g, "");
+				//	const depositAmount = amount.replace(/[^0-9]/g, "");
+				const depositAmount = amount.replace(/,/g, "").replace(/^[^0-9]+/, "");
 				const bankName = bank.replace(/\s+/g, "");
 				if (!customer.ok) {
 					req.flash("error", "Please check the customer ID");
@@ -281,6 +282,7 @@ router.post(
 					paymentAGENT,
 					bank,
 					paymentchannel,
+					file_id,
 				};
 				await initQueue(paymentPayload);
 

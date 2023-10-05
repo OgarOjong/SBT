@@ -113,11 +113,10 @@ exports.updateFile = async (payload) => {
 			data_ref,
 			customer_id,
 			paymentchannel,
-			updater,
+			paymentAGENT,
 			file_id,
-			depositAmount,
+			paymentAmount,
 		} = payload;
-		//console.log("Values passed for updating", payload);
 		const isUpdated = await Files.findOne({
 			"csv.data_ref": data_ref,
 			status: "updated",
@@ -132,7 +131,7 @@ exports.updateFile = async (payload) => {
 					"csv.$.customer_id": customer_id,
 					"csv.$.paymentchannel": paymentchannel,
 					"csv.$.status": "updated",
-					"csv.$.updater": updater,
+					"csv.$.updater": paymentAGENT,
 					"csv.$.updatedDate": new Date(),
 				},
 			},
@@ -143,7 +142,7 @@ exports.updateFile = async (payload) => {
 			}
 		);
 		logger.info(
-			`updated:--Channel:${paymentchannel}--CustomerID:${customer_id}--Updater:${updater}--Amount:${depositAmount}`
+			`updated:--Channel:${paymentchannel}--CustomerID:${customer_id}--PaymentAgent:${paymentAGENT}--Amount:${paymentAmount}`
 		);
 	} catch (err) {
 		console.log(err);
@@ -172,7 +171,7 @@ exports.findTransaction = async (bank, data_ref) => {
 	];
 	try {
 		const findFile = await Files.aggregate(pipeline);
-		console.log("The array length", findFile.length);
+		//console.log("The array length", findFile.length);
 
 		if (findFile.length > 0) {
 			return { ok: true, data: findFile[0] };
@@ -187,10 +186,11 @@ exports.findTransaction = async (bank, data_ref) => {
 module.exports.updateSmsStatus = async (file_id, date, phonenumber, status) => {
 	// Parse the input date string to a JavaScript Date object
 	const parsedDate = new Date(date);
-	console.log("Parseddate", parsedDate);
+	/*console.log("Parseddate", parsedDate);
 	console.log("id", file_id);
 	console.log("phonenumber", phonenumber);
 	console.log("status", status);
+	*/
 	try {
 		let updatedVar = await JaraFiles.findOneAndUpdate(
 			{
@@ -212,6 +212,20 @@ module.exports.updateSmsStatus = async (file_id, date, phonenumber, status) => {
 		console.log("updated Value", updatedVar);
 	} catch (error) {
 		console.log("updated Error", error);
+	}
+};
+
+module.exports.filesLeastDate = async () => {
+	try {
+		const leastDate = await Files.findOne({}).sort({ createdAt: 1 });
+		const greatestDate = await Files.findOne({}).sort({ createdAt: -1 });
+		const minDate = leastDate.createdAt;
+		const maxDate = greatestDate.createdAt;
+		return { ok: true, message: { minDate, maxDate } };
+	} catch (error) {
+		console.log("Fine least document Error", err);
+		logger.error(`Least document Error:`, err.message);
+		return { ok: false, message: err.message };
 	}
 };
 

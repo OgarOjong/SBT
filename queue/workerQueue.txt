@@ -3,9 +3,10 @@ const { logger } = require("../utils/logger");
 const { covalencepayment } = require("../services/useridverification");
 const { findTransaction } = require("../services/upload");
 const { updateFile } = require("../services/upload");
+//const IORedis = require("ioredis");
+//const connection = new IORedis();
 const redis = require("redis");
 const client = redis.createClient();
-const Lock = require("redis-lock");
 
 async function processPaymentJob(jobData) {
 	const {
@@ -21,24 +22,26 @@ async function processPaymentJob(jobData) {
 
 	// Acquire a lock for this job based on the data_ref
 	const lockKey = `job_lock:${data_ref}`;
-	const lock = new Lock(client, lockKey, { timeout: 5000 });
-
+	const isLockAcquired = await connection.get(lockKey);
+	//const lock = connection.lock(lockKey, { timeout: 5000 });
+	console.log(
+		`Processing job: data_ref=${data_ref}, isLockAcquired=${isLockAcquired}`
+	);
+	if (isLockAcquired) {
+		// The lock is acquired by another worker, so skip processing
+		console.log(`Duplicate job skipped (lock acquired): data_ref=${data_ref}`);
+		return;
+	}
+	await connection.set(lockKey, "locked", "PX", 5000);
 	try {
-		const lockAcquired = await lock.acquire();
-
-		if (!lockAcquired) {
-			// Another worker already holds the lock; skip processing
-			console.log(
-				`Duplicate job skipped (lock acquired): data_ref=${data_ref}`
-			);
-			return;
-		}
+		// Attempt to acquire the lock
+		//await lock.acquire();
 
 		// Check if the payment has already been processed
 		const transctionStatus = await findTransaction(bank, data_ref);
 		if (transctionStatus.data.csv.status === "updated") {
 			logger.info(
-				`payment already processed possible duplicate from race-condition--DateRef: ${data_ref} --bank:${bank}`
+				`payment already processed possible duplicte from race-condition--DateRef: ${data_ref} --bank:${bank}`
 			);
 			console.log("Possible Duplicate payment processing");
 			throw Error("Possible Duplicate payment processing");
@@ -87,19 +90,20 @@ async function processPaymentJob(jobData) {
 	} finally {
 		// Release the lock
 		await lock.release();
+		//await connection.del(lockKey);
 	}
 }
 
 const worker = new Worker("paymentQueue", processPaymentJob);
 worker.on("error", (err) => {
 	logger.info(`WorkerError Event StackMessage : ${err.message}`);
-	console.log(`${job.id} has an Error with message ${err.message}!`);
+	console.log(`${job.id} has and Error with message ${err.message}!`);
 	console.error(err);
 });
 worker.on("completed", async (job, result) => {
 	if (!result) {
 		logger.info(
-			`Unforeseen scenario check the Worker Queue implementation JobId: ${job.id}, data_ref:${result.message.data_ref}`
+			`Unforseen scenario check the Worker Queue implementation JobId: ${job.id}, data_ref:${result.message.data_ref}`
 		);
 	} else if (result && result.message.covalenceRes) {
 		const {
@@ -122,7 +126,7 @@ worker.on("completed", async (job, result) => {
 		logger.info(`Queues: ${job.id} has completed!`);
 	} else {
 		logger.info(
-			`Unforeseen scenario Two check the Worker Queue implementation JobId: ${job.id}, data_ref:${result.message.data_ref}`
+			`Unforseen scenario Two check the Worker Queue implementation JobId: ${job.id}, data_ref:${result.message.data_ref}`
 		);
 	}
 });

@@ -43,8 +43,7 @@ exports.covalencepayment = async (
 		paymentreference: `${data_ref}|SBT`,
 		//${bank}||${ccAgent}||
 	};
-	console.log("request Payload:", data);
-	console.log("customerID:", amount);
+	//console.log("request Payload:", data);
 	let notifyPayment = await covalenceReq.makeCall(
 		"POST",
 		`${config.COVALENSE.notificationURL}`,

@@ -1,5 +1,9 @@
 const { Queue } = require("bullmq");
 const { logger } = require("../utils/logger");
+//const { connection } = require("./workerQueue");
+const redisOptions = { host: "localhost", port: 6379 };
+const IORedis = require("ioredis");
+const connection = new IORedis();
 
 const covalenceQueue = new Queue("paymentQueue", {
 	defaultJobOptions: {
@@ -9,6 +13,7 @@ const covalenceQueue = new Queue("paymentQueue", {
 			delay: 2000, // this is in miliseconds
 		},
 	},
+	connection,
 });
 
 module.exports.initQueue = async (paymentPayload) => {
